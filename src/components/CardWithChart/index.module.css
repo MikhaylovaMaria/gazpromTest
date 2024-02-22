@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 170px;
+}
+
+.card {
+    width: 1200px;
+    height: 400px;
+    padding: 8px 8px 40px 13px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
