@@ -21,29 +21,34 @@ const CardWithChart = () => {
     indicator?: string;
     symbol?: string;
   };
+
   const items: Item[] = ['$', '€', '¥'];
   const [currency, setCurrency] = useState<Item>(items[0]);
   const [id, setId] = useState<number | null>(null);
   const { data } = useData();
 
+  // Функция для нахождения ID валюты по её символу
   const findCurrencyIdBySymbol = (symbol: string): number => {
     const foundCurrency = currencies.find((item) => item.symbol === symbol);
     return foundCurrency?.id || 0;
   };
-
+  // Мемоизированный ID текущей валюты
   const currencyId = useMemo(
     () => findCurrencyIdBySymbol(currency),
     [currency]
   );
+  // Обновление ID текущей валюты при изменении
   useEffect(() => {
     setId(currencyId);
   }, [currencyId]);
 
+  // Мемоизированный объект текущей валюты
   const currentCurrency = useMemo(() => {
     const foundCurrency = currencies.find((elem) => elem.id === id);
     return foundCurrency ? foundCurrency : ({ id } as currentCurrencyItem);
-  }, [currencies, id]);
+  }, [id]);
 
+  // Мемоизированный массив отфильтрованных данных для текущей валюты
   const filteredData = useMemo<FilteredDataItem[]>(() => {
     return data.filter((elem) => elem.indicator === currentCurrency?.indicator);
   }, [data, currentCurrency]);

@@ -20,19 +20,19 @@ const MeanValueForCurrency = ({
 }: MeanValueForCurrencyProps) => {
   const [meanValue, setMeanValue] = useState<string | null>(null);
 
+  // отслеживание среднего значения при изменении валюты или отфильтрованных данных
   useEffect(() => {
     const { length } = filteredData;
-    if (length > 0) {
-      const averageValue = (
-        filteredData.reduce((acc, elem) => acc + elem?.value, 0) / length
-      ).toFixed(1);
-      const formatter = new Intl.NumberFormat(undefined, {
-        minimumFractionDigits: 1,
-      });
-      setMeanValue(formatter.format(parseFloat(averageValue)));
-    } else {
-      setMeanValue('');
-    }
+    const averageValue =
+      length > 0
+        ? (
+            filteredData.reduce((acc, elem) => acc + elem?.value, 0) / length
+          ).toFixed(1)
+        : '0';
+    const formatter = new Intl.NumberFormat(undefined, {
+      minimumFractionDigits: 1,
+    });
+    setMeanValue(formatter.format(parseFloat(averageValue)));
   }, [currencyId, filteredData]);
 
   return (

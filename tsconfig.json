@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*", "custom.d.ts","src/Echarts"]
+  "include": ["src/**/*", "custom.d.ts","src/Echarts","types"]
 }
